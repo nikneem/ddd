@@ -12,16 +12,19 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.x'
+
+      # Install GitVersion to automatically create a semantic 
+      # version from your repository: 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9
+        uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-            versionSpec: '5.1.x'
+          versionSpec: '5.x'
+          
+      # Run GitVersion (set an ID to later fetch values)
       - name: Determine Version
-        id: gitversion
+        id:   gitversion
         uses: gittools/actions/gitversion/execute@v0.9.7
-        with:
-          useConfigFile: true
-          configFilePath: GitVersion.yml
+        
       - run: dotnet build src/DDD.sln -c Release /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.Sha }}
       - name: Publish Artifact
         uses: actions/upload-artifact@v2
