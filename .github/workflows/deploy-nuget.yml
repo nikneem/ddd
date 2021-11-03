@@ -13,3 +13,8 @@ jobs:
         with:
           dotnet-version: '5.0.x'
       - run: dotnet build src/DDD.sln -c Release
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: nuget-package
+          path: src/HexMaster.DomainDrivenDesign/bin/Release/*.nupkg
