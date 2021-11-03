@@ -9,6 +9,9 @@ jobs:
     name: Update NuGet 
     steps:
       - uses: actions/checkout@master
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9
         with:
@@ -19,9 +22,6 @@ jobs:
         with:
           useConfigFile: true
           configFilePath: GitVersion.yml
-      - uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '5.0.x'
       - run: dotnet build src/DDD.sln -c Release /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.Sha }}
       - name: Publish Artifact
         uses: actions/upload-artifact@v2
@@ -30,6 +30,7 @@ jobs:
           path: src/HexMaster.DomainDrivenDesign/bin/Release/*.nupkg
 
   deploy:
+    needs: [build]
     runs-on: ubuntu-latest
     name: Deploy NuGet Package
     steps:
