@@ -9,12 +9,33 @@ jobs:
     name: Update NuGet 
     steps:
       - uses: actions/checkout@master
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9
+        with:
+            versionSpec: '5.1.x'
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
+          configFilePath: GitVersion.yml
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.x'
-      - run: dotnet build src/DDD.sln -c Release
+      - run: dotnet build src/DDD.sln -c Release /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.Sha }}
       - name: Publish Artifact
         uses: actions/upload-artifact@v2
         with:
           name: nuget-package
           path: src/HexMaster.DomainDrivenDesign/bin/Release/*.nupkg
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy NuGet Package
+    steps:
+      - name: publish on version change
+        id: publish_nuget
+        uses: rohith/publish-nuget@v2
+        with:
+          # Filepath of the project to be packaged, relative to root of repository
+          PROJECT_FILE_PATH: Core/Core.csproj
