@@ -38,9 +38,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy NuGet Package
     steps:
-      - name: publish on version change
-        id: publish_nuget
-        uses: rohith/publish-nuget@v2
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
         with:
-          # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: Core/Core.csproj
+          name: nuget-package
+          path: ./package
+      - name: Publish
+        run: nuget push package/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
