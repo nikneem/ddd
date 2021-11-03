@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Eduard Keilholz</Authors>
     <Product>Domain Driven Design helper classes and base classes</Product>
-    <PackageLicenseFile>License.md</PackageLicenseFile>
+    <PackageLicenseFile>..\..\LICENSE</PackageLicenseFile>
     <Version>0.0.3</Version>
     <Description>This package contains some base classes to easily get started writing domains and DDD supported software systems. The domain model contains change tracking for persistence convenience.</Description>
     <AssemblyVersion>0.0.3.0</AssemblyVersion>
@@ -13,6 +13,13 @@
 
   <ItemGroup>
     <Folder Include="ValueObjects\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
