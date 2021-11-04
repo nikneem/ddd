@@ -30,6 +30,7 @@ jobs:
         with:
           useConfigFile: true
 
+      - run: dotnet build src/DDD.sln -c Release /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.Sha }}
       - run: dotnet pack src/HexMaster.DomainDrivenDesign/HexMaster.DomainDrivenDesign.csproj -c Release -p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} -p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} -p:InformationalVersion=${{ steps.gitversion.outputs.Sha }} -p:PackageVersion=${{ steps.gitversion.outputs.MajorMinorPatch }}
       - name: Publish Artifact
         uses: actions/upload-artifact@v2
