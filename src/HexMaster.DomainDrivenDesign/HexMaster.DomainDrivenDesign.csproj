@@ -11,6 +11,7 @@
     <AssemblyVersion>0.0.4.0</AssemblyVersion>
     <RepositoryUrl>https://github.com/nikneem/ddd</RepositoryUrl>
     <PackageProjectUrl>https://github.com/nikneem/ddd</PackageProjectUrl>
+    <Copyright>2021</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
