@@ -21,7 +21,11 @@
         {
             All = new[]
             {
-                New = new TrackingStateNew()
+                New = new TrackingStateNew(),
+                Pristine = new TrackingStatePristine(),
+                Touched = new TrackingStateTouched(),
+                Modified = new TrackingStateModified(),
+                Deleted = new TrackingStateDeleted()
             };
         }
 
