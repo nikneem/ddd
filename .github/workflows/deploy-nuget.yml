@@ -6,32 +6,37 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    name: Update NuGet 
+    name: Update NuGet
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: "5.0.x"
 
-      # Install GitVersion to automatically create a semantic 
-      # version from your repository: 
+      # Install GitVersion to automatically create a semantic
+      # version from your repository:
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-          versionSpec: '5.x'
-          useConfigFile: true
-          
+          versionSpec: "5.x"
+
       # Run GitVersion (set an ID to later fetch values)
       - name: Determine Version
-        id:   gitversion
+        id: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
 
       - run: dotnet build src/DDD.sln -c Release /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.Sha }}
+      - run: dotnet pack src/HexMaster.DomainDrivenDesign/HexMaster.DomainDrivenDesign.csproj -c Release -p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} -p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} -p:InformationalVersion=${{ steps.gitversion.outputs.Sha }} -p:PackageVersion=${{ steps.gitversion.outputs.MajorMinorPatch }}
       - name: Publish Artifact
         uses: actions/upload-artifact@v2
         with:
           name: nuget-package
-          path: src/HexMaster.DomainDrivenDesign/bin/Release/*.nupkg
+          path: src/HexMaster.DomainDrivenDesign/bin/Release/*${{ steps.gitversion.outputs.MajorMinorPatch }}.nupkg
 
   deploy:
     needs: [build]
