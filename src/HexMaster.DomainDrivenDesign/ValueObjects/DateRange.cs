@@ -5,8 +5,8 @@ namespace HexMaster.DomainDrivenDesign.ValueObjects
 {
     public class DateRange
     {
-        public DateTimeOffset StartDate { get;  }
-        public DateTimeOffset? EndDate { get;  }
+        public DateTimeOffset StartDate { get; }
+        public DateTimeOffset? EndDate { get; }
 
         public DateRange(DateTimeOffset start, DateTimeOffset? end = null)
         {
@@ -18,6 +18,8 @@ namespace HexMaster.DomainDrivenDesign.ValueObjects
                         $"End date of date range is before the start date: Start '{start}', End '{end}'");
                 }
             }
+            StartDate = start;
+            EndDate = end;  
         }
     }
 }

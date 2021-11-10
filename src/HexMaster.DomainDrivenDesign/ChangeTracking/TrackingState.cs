@@ -1,4 +1,6 @@
-﻿namespace HexMaster.DomainDrivenDesign.ChangeTracking
+﻿using System.Linq;
+
+namespace HexMaster.DomainDrivenDesign.ChangeTracking
 {
     public abstract class TrackingState
     {
@@ -10,6 +12,10 @@
         public static TrackingState Deleted;
 
         public static TrackingState[] All;
+        public static TrackingState FromKey(string key)
+        {
+            return All.FirstOrDefault(x => x.Key == key);
+        }
 
         public abstract string Key { get; }
         public virtual bool CanSwitchTo(TrackingState newState)
