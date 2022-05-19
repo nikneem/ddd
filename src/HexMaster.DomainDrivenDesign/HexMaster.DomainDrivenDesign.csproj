@@ -15,10 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ValueObjects\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
