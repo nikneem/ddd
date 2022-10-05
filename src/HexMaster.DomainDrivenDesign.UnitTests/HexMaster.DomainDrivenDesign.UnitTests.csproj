@@ -24,4 +24,8 @@
     <ProjectReference Include="..\HexMaster.DomainDrivenDesign\HexMaster.DomainDrivenDesign.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DomainModel\Models\Events\" />
+  </ItemGroup>
+
 </Project>

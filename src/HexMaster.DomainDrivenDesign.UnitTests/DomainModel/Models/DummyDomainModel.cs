@@ -5,6 +5,9 @@ namespace HexMaster.DomainDrivenDesign.UnitTests.DomainModel.Models
 {
     internal class DummyDomainModel : DomainModel<Guid>
     {
+
+        
+
         public DummyDomainModel(TrackingState state) : base(Guid.NewGuid(), state)
         {
         }
