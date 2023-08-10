@@ -2,33 +2,35 @@
 using HexMaster.DomainDrivenDesign.ChangeTracking;
 using HexMaster.DomainDrivenDesign.Exceptions;
 
-namespace HexMaster.DomainDrivenDesign;
-
-public abstract class DomainModel<TId> : IDomainModel<TId>
+namespace HexMaster.DomainDrivenDesign
 {
 
-    public TId Id { get; }
-
-    public TrackingState TrackingState { get; private set; }
-
-    protected void SetState(TrackingState state)
+    public abstract class DomainModel<TId> : IDomainModel<TId>
     {
-        if (TrackingState.CanSwitchTo(state))
-        {
-            TrackingState = state;
-        }
-    }
 
-    protected DomainModel(TId id, TrackingState state = null)
-    {
-        var initialState = state ?? TrackingState.Pristine;
-        if (initialState != TrackingState.New && initialState != TrackingState.Pristine)
+        public TId Id { get; }
+
+        public TrackingState TrackingState { get; private set; }
+
+        protected void SetState(TrackingState state)
         {
-            throw new DomainException(
-                $"The initial state of a domain model must always be New or Pristine. The current value '{initialState.Key}' is not allowed.");
+            if (TrackingState.CanSwitchTo(state))
+            {
+                TrackingState = state;
+            }
         }
 
-        Id = id;
-        TrackingState = initialState;
+        protected DomainModel(TId id, TrackingState state = null)
+        {
+            var initialState = state ?? TrackingState.Pristine;
+            if (initialState != TrackingState.New && initialState != TrackingState.Pristine)
+            {
+                throw new DomainException(
+                    $"The initial state of a domain model must always be New or Pristine. The current value '{initialState.Key}' is not allowed.");
+            }
+
+            Id = id;
+            TrackingState = initialState;
+        }
     }
 }
