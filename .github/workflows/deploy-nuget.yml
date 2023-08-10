@@ -9,27 +9,27 @@ jobs:
     name: Update NuGet
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: "7.0"
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: "6.0"
 
       # Install GitVersion to automatically create a semantic
       # version from your repository:
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
+        uses: gittools/actions/gitversion/setup@v0.9.15
         with:
           versionSpec: "5.x"
 
       # Run GitVersion (set an ID to later fetch values)
       - name: Determine Version
         id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.7
+        uses: gittools/actions/gitversion/execute@v0.9.15
         with:
           useConfigFile: true
 
@@ -37,7 +37,7 @@ jobs:
       - run: dotnet test src/DDD.sln
       - run: dotnet pack src/HexMaster.DomainDrivenDesign/HexMaster.DomainDrivenDesign.csproj -c Release -p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} -p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} -p:InformationalVersion=${{ steps.gitversion.outputs.Sha }} -p:PackageVersion=${{ steps.gitversion.outputs.MajorMinorPatch }}
       - name: Publish Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: nuget-package
           path: src/HexMaster.DomainDrivenDesign/bin/Release/*${{ steps.gitversion.outputs.MajorMinorPatch }}.nupkg
@@ -49,9 +49,9 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.0.5
+        uses: NuGet/setup-nuget@v1.2.0
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: nuget-package
           path: ./package
