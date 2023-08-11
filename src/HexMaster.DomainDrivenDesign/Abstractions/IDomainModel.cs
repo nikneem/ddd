@@ -2,7 +2,7 @@
 
 namespace HexMaster.DomainDrivenDesign.Abstractions
 {
-    internal interface IDomainModel<TId>
+    public interface IDomainModel<out TId>
     {
         TId Id { get; }
         TrackingState TrackingState { get; }
