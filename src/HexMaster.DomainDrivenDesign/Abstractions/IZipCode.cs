@@ -1,7 +1,6 @@
-﻿namespace HexMaster.DomainDrivenDesign.Abstractions
+﻿namespace HexMaster.DomainDrivenDesign.Abstractions;
+
+public interface IZipCode
 {
-    public interface IZipCode
-    {
-        string Value { get; }
-    }
+    string Value { get; }
 }

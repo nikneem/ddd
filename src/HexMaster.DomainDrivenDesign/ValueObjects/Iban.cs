@@ -6,26 +6,24 @@ using System.Linq;
 using System.Threading;
 using HexMaster.DomainDrivenDesign.ExtensionMethods;
 
-namespace HexMaster.DomainDrivenDesign.ValueObjects
+namespace HexMaster.DomainDrivenDesign.ValueObjects;
+
+public sealed class Iban
 {
+    public string Number { get; }
+    public string CondensedString => Number.ToCondensedString();
 
-    public sealed class Iban
+    private Iban(string number)
     {
-        public string Number { get; }
-        public string CondensedString => Number.ToCondensedString();
+        Number = number;
+    }
 
-        private Iban(string number)
+    public static Iban FromNumber(string number)
+    {
+        if (!number.IbanChecksumCheck())
         {
-            Number = number;
+            throw new ArgumentException($"The number '{number}' is not a valid IBAN number", nameof(number));
         }
-
-        public static Iban FromNumber(string number)
-        {
-            if (!number.IbanChecksumCheck())
-            {
-                throw new ArgumentException($"The number '{number}' is not a valid IBAN number", nameof(number));
-            }
-            return new Iban(number);
-        }
+        return new Iban(number);
     }
 }

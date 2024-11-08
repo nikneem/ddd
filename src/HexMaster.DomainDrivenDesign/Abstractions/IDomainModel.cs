@@ -1,10 +1,9 @@
 ﻿using HexMaster.DomainDrivenDesign.ChangeTracking;
 
-namespace HexMaster.DomainDrivenDesign.Abstractions
+namespace HexMaster.DomainDrivenDesign.Abstractions;
+
+public interface IDomainModel<out TId>
 {
-    public interface IDomainModel<out TId>
-    {
-        TId Id { get; }
-        TrackingState TrackingState { get; }
-    }
+    TId Id { get; }
+    TrackingState TrackingState { get; }
 }

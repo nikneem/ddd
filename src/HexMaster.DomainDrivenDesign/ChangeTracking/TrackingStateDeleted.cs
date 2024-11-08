@@ -1,7 +1,6 @@
-﻿namespace HexMaster.DomainDrivenDesign.ChangeTracking
+﻿namespace HexMaster.DomainDrivenDesign.ChangeTracking;
+
+public sealed class TrackingStateDeleted : TrackingState
 {
-    public sealed class TrackingStateDeleted : TrackingState
-    {
-        public override string Key => TrackingStateKey.Deleted;
-    }
+    public override string Key => TrackingStateKey.Deleted;
 }

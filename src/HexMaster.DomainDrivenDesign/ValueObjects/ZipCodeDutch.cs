@@ -2,36 +2,35 @@
 using System.Text.RegularExpressions;
 using HexMaster.DomainDrivenDesign.Abstractions;
 
-namespace HexMaster.DomainDrivenDesign.ValueObjects
+namespace HexMaster.DomainDrivenDesign.ValueObjects;
+
+public class ZipCodeDutch : IZipCode
 {
-    public class ZipCodeDutch : IZipCode
+    private const string MatchPattern = "^(?<Numbers>[1-9]\\d{3})\\ *(?<Letters>[a-zA-Z]{2})$";
+
+    public string Value { get; }
+
+    public static IZipCode Parse(string value)
     {
-        private const string MatchPattern = "^(?<Numbers>[1-9]\\d{3})\\ *(?<Letters>[a-zA-Z]{2})$";
-
-        public string Value { get; }
-
-        public static IZipCode Parse(string value)
+        var matches = Regex.Match(value, MatchPattern);
+        if (matches.Success)
         {
-            var matches = Regex.Match(value, MatchPattern);
-            if (matches.Success)
-            {
-                var numbers = matches.Groups["Numbers"].Success ? matches.Groups["Numbers"].Value : null;
-                var letters = matches.Groups["Letters"].Success ? matches.Groups["Letters"].Value : null;
-                return new ZipCodeDutch($"{numbers} {letters.ToUpperInvariant()}");
-            }
-
-            throw new ArgumentException(
-                $"The value {value} is not a valid dutch zip code and does not match the pattern {MatchPattern}");
+            var numbers = matches.Groups["Numbers"].Success ? matches.Groups["Numbers"].Value : null;
+            var letters = matches.Groups["Letters"].Success ? matches.Groups["Letters"].Value : null;
+            return new ZipCodeDutch($"{numbers} {letters.ToUpperInvariant()}");
         }
 
-        public override string ToString()
-        {
-            return Value;
-        }
+        throw new ArgumentException(
+            $"The value {value} is not a valid dutch zip code and does not match the pattern {MatchPattern}");
+    }
 
-        private ZipCodeDutch(string value)
-        {
-            Value = value;
-        }
+    public override string ToString()
+    {
+        return Value;
+    }
+
+    private ZipCodeDutch(string value)
+    {
+        Value = value;
     }
 }

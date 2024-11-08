@@ -2,18 +2,17 @@
 using System;
 using Xunit;
 
-namespace HexMaster.DomainDrivenDesign.UnitTests.DomainModel
+namespace HexMaster.DomainDrivenDesign.UnitTests.DomainModel;
+
+public class EntityIdTests
 {
-    public class EntityIdTests
+
+    [Fact]
+    public void WhenDomainModelIsInstanciated_TheIdPropertyIsSet()
     {
-
-        [Fact]
-        public void WhenDomainModelIsInstanciated_TheIdPropertyIsSet()
-        {
-            var expected = Guid.NewGuid();
-            var domainModel = new DummyDomainModel(expected);
-            Assert.Equal(domainModel.Id, expected);
-        }
-
+        var expected = Guid.NewGuid();
+        var domainModel = new DummyDomainModel(expected);
+        Assert.Equal(domainModel.Id, expected);
     }
+
 }
