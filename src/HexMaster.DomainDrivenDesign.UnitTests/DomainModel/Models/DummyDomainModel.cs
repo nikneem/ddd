@@ -8,7 +8,7 @@ internal class DummyDomainModel : DomainModel<Guid>
     public DummyDomainModel(TrackingState state) : base(Guid.NewGuid(), state)
     {
     }
-    public DummyDomainModel(Guid id) : base(id)
+    public DummyDomainModel(Guid id) : base(id, TrackingState.Pristine)
     {
     }
 
