@@ -6,7 +6,6 @@ public interface IDomainEventHandler<in TDomainEvent> : IDomainEventHandler wher
 {
     Task Handle(TDomainEvent domainEvent);
 }
-
 public interface IDomainEventHandler
 {
     Task Handle(IDomainEvent @event);
