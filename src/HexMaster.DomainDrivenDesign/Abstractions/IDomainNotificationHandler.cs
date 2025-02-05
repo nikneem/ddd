@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace HexMaster.DomainDrivenDesign.Abstractions;
 
-public interface IDomainNotificationHandler
+public interface IDomainNotificationHandler<in TDomainEvent> where TDomainEvent : IDomainNotification
 {
-    Task Handle(IDomainNotification domainEvent, CancellationToken cancellationToken = default);
+    Task Handle(TDomainEvent domainEvent, CancellationToken cancellationToken = default);
 }
