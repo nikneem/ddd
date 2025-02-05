@@ -6,5 +6,5 @@ namespace HexMaster.DomainDrivenDesign.Abstractions;
 public interface IDomainEventDispatcher
 {
     Task Dispatch(IDomainEvent domainEvent);
-    Task Dispatch(List<IDomainEvent> domainEvents);
+    Task Dispatch(IEnumerable<IDomainEvent> domainEvents);
 }

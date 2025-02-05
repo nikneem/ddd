@@ -35,7 +35,7 @@ public class DomainEventDispatcher(IServiceProvider serviceProvider, ILogger<Dom
             }
         }
     }
-    public async Task Dispatch(List<IDomainEvent> domainEvents)
+    public async Task Dispatch(IEnumerable<IDomainEvent> domainEvents)
     {
         foreach (var domainEvent in domainEvents)
         {
