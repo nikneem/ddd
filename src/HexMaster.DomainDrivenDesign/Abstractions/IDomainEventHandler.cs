@@ -1,11 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace HexMaster.DomainDrivenDesign.Abstractions;
 
 public interface IDomainEventHandler<in TDomainEvent> : IDomainEventHandler where TDomainEvent : IDomainEvent
 {
-    Task Handle(TDomainEvent domainEvent, CancellationToken cancellationToken = default);
+    Task Handle(TDomainEvent domainEvent);
 }
 
 public interface IDomainEventHandler
