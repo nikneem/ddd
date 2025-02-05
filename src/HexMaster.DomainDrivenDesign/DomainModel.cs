@@ -9,7 +9,7 @@ namespace HexMaster.DomainDrivenDesign;
 public abstract class DomainModel<TId> : IDomainModel<TId>
 {
 
-    private List<IDomainEvent> _domainEvents;
+    private readonly List<IDomainEvent> _domainEvents;
     public TId Id { get; }
     public TrackingState TrackingState { get; private set; }
     public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
@@ -41,18 +41,20 @@ public abstract class DomainModel<TId> : IDomainModel<TId>
             TrackingState = state;
         }
     }
-
-    protected DomainModel(TId id, TrackingState? state)
+    protected DomainModel(TId id) : this(id, TrackingState.Pristine)
     {
-        var initialState = state ?? TrackingState.Pristine;
-        if (initialState != TrackingState.New && initialState != TrackingState.Pristine)
+    }
+
+    protected DomainModel(TId id, TrackingState state)
+    {
+        if (state != TrackingState.New && state != TrackingState.Pristine)
         {
             throw new DomainException(
-                $"The initial state of a domain model must always be New or Pristine. The current value '{initialState.Key}' is not allowed.");
+                $"The initial state of a domain model must always be New or Pristine. The current value '{state.Key}' is not allowed.");
         }
 
         Id = id;
-        TrackingState = initialState;
-        _domainEvents = new List<IDomainEvent>();
+        TrackingState = state;
+        _domainEvents = [];
     }
 }
