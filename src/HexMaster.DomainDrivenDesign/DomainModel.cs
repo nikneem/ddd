@@ -1,4 +1,6 @@
-﻿using HexMaster.DomainDrivenDesign.Abstractions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HexMaster.DomainDrivenDesign.Abstractions;
 using HexMaster.DomainDrivenDesign.ChangeTracking;
 using HexMaster.DomainDrivenDesign.Exceptions;
 
@@ -7,9 +9,30 @@ namespace HexMaster.DomainDrivenDesign;
 public abstract class DomainModel<TId> : IDomainModel<TId>
 {
 
+    private List<IDomainNotification> _domainEvents;
     public TId Id { get; }
-
     public TrackingState TrackingState { get; private set; }
+    public IReadOnlyList<IDomainNotification> DomainEvents => _domainEvents.AsReadOnly();
+    public void AddDomainEvent(IDomainNotification domainEvent)
+    {
+        if (_domainEvents.All(evt => evt.EventId != domainEvent.EventId))
+        {
+            _domainEvents.Add(domainEvent);
+        }
+    }
+
+    public void RemoveDomainEvent(IDomainNotification domainEvent)
+    {
+        if (_domainEvents.Contains(domainEvent))
+        {
+            _domainEvents.Remove(domainEvent);
+        }
+    }
+
+    public void ClearDomainEvents()
+    {
+        _domainEvents.Clear();
+    }
 
     protected void SetState(TrackingState state)
     {
@@ -30,5 +53,6 @@ public abstract class DomainModel<TId> : IDomainModel<TId>
 
         Id = id;
         TrackingState = initialState;
+        _domainEvents = new List<IDomainNotification>();
     }
 }
