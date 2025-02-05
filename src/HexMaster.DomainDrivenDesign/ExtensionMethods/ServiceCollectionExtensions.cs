@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
     
     public static IServiceCollection AddDomainEventDispatcher(this IServiceCollection services)
     {
-        services.AddSingleton<IDomainEventDispatcher, DomainEventDispatcher>();
+        services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
         return services;
     }
 
