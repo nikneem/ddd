@@ -11,12 +11,22 @@
     <AssemblyVersion>0.0.4.0</AssemblyVersion>
     <RepositoryUrl>https://github.com/nikneem/ddd</RepositoryUrl>
     <PackageProjectUrl>https://github.com/nikneem/ddd</PackageProjectUrl>
-    <Copyright>2021</Copyright>
+    <Copyright>2025</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>ddd-icon-small.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Update="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ddd-icon-small.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
     <None Include="LICENSE">
       <Pack>True</Pack>
