@@ -2,7 +2,7 @@
 
 namespace HexMaster.DomainDrivenDesign.Abstractions;
 
-public interface IDomainNotification
+public interface IDomainEvent
 {
     Guid EventId { get; }
 }
