@@ -1,41 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Eduard Keilholz</Authors>
-    <Product>Domain Driven Design helper classes and base classes</Product>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>0.0.4</Version>
-    <Description>This package contains some base classes to easily get started writing domains and DDD supported software systems. The domain model contains change tracking for persistence convenience.</Description>
-    <AssemblyVersion>0.0.4.0</AssemblyVersion>
-    <RepositoryUrl>https://github.com/nikneem/ddd</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/nikneem/ddd</PackageProjectUrl>
-    <Copyright>2025</Copyright>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>ddd-icon-small.png</PackageIcon>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Update="LICENSE">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\ddd-icon-small.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.10" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net8.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<Title>HexMaster Domain Driven Design Library</Title>
+		<Authors>Eduard Keilholz</Authors>
+		<Product>Domain Driven Design helper classes and base classes</Product>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Version>0.0.4</Version>
+		<Description>This package contains some base classes to easily get started writing domains and DDD supported software systems. The domain model contains change tracking for persistence convenience.</Description>
+		<AssemblyVersion>0.0.4.0</AssemblyVersion>
+		<RepositoryUrl>https://github.com/nikneem/ddd</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/nikneem/ddd</PackageProjectUrl>
+		<Copyright>2025</Copyright>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>ddd-icon-small.png</PackageIcon>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Update="LICENSE">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="..\..\ddd-icon-small.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.10" />
+	</ItemGroup>
 
 </Project>
