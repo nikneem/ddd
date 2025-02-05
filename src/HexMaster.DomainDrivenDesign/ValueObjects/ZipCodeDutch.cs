@@ -16,7 +16,7 @@ public class ZipCodeDutch : IZipCode
         if (matches.Success)
         {
             var numbers = matches.Groups["Numbers"].Success ? matches.Groups["Numbers"].Value : null;
-            var letters = matches.Groups["Letters"].Success ? matches.Groups["Letters"].Value : null;
+            var letters = matches.Groups["Letters"].Success ? matches.Groups["Letters"].Value : string.Empty;
             return new ZipCodeDutch($"{numbers} {letters.ToUpperInvariant()}");
         }
 

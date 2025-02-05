@@ -7,9 +7,9 @@ public interface IDomainModel<out TId>
 {
     TId Id { get; }
     TrackingState TrackingState { get; } 
-    IReadOnlyList<IDomainNotification> DomainEvents { get; }
+    IReadOnlyList<IDomainEvent> DomainEvents { get; }
 
-    void AddDomainEvent(IDomainNotification domainEvent);
-    void RemoveDomainEvent(IDomainNotification domainEvent);
+    void AddDomainEvent(IDomainEvent domainEvent);
+    void RemoveDomainEvent(IDomainEvent domainEvent);
     void ClearDomainEvents();
 }

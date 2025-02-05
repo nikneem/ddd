@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace HexMaster.DomainDrivenDesign.ChangeTracking;
 
@@ -14,7 +15,11 @@ public abstract class TrackingState
     public static TrackingState[] All;
     public static TrackingState FromKey(string key)
     {
-        return All.FirstOrDefault(x => x.Key == key);
+        if (All.All(k => k.Key != key))
+        {
+            throw new ArgumentException($"Unknown tracking state key: {key}");
+        }
+        return All.First(x => x.Key == key);
     }
 
     public abstract string Key { get; }

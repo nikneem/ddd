@@ -9,11 +9,11 @@ namespace HexMaster.DomainDrivenDesign;
 public abstract class DomainModel<TId> : IDomainModel<TId>
 {
 
-    private List<IDomainNotification> _domainEvents;
+    private List<IDomainEvent> _domainEvents;
     public TId Id { get; }
     public TrackingState TrackingState { get; private set; }
-    public IReadOnlyList<IDomainNotification> DomainEvents => _domainEvents.AsReadOnly();
-    public void AddDomainEvent(IDomainNotification domainEvent)
+    public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    public void AddDomainEvent(IDomainEvent domainEvent)
     {
         if (_domainEvents.All(evt => evt.EventId != domainEvent.EventId))
         {
@@ -21,7 +21,7 @@ public abstract class DomainModel<TId> : IDomainModel<TId>
         }
     }
 
-    public void RemoveDomainEvent(IDomainNotification domainEvent)
+    public void RemoveDomainEvent(IDomainEvent domainEvent)
     {
         if (_domainEvents.Contains(domainEvent))
         {
@@ -42,7 +42,7 @@ public abstract class DomainModel<TId> : IDomainModel<TId>
         }
     }
 
-    protected DomainModel(TId id, TrackingState state = null)
+    protected DomainModel(TId id, TrackingState? state)
     {
         var initialState = state ?? TrackingState.Pristine;
         if (initialState != TrackingState.New && initialState != TrackingState.Pristine)
@@ -53,6 +53,6 @@ public abstract class DomainModel<TId> : IDomainModel<TId>
 
         Id = id;
         TrackingState = initialState;
-        _domainEvents = new List<IDomainNotification>();
+        _domainEvents = new List<IDomainEvent>();
     }
 }
