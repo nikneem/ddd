@@ -3,6 +3,7 @@ using System.Linq;
 using HexMaster.DomainDrivenDesign.Abstractions;
 using HexMaster.DomainDrivenDesign.ChangeTracking;
 using HexMaster.DomainDrivenDesign.Exceptions;
+using HexMaster.DomainDrivenDesign.Notifications;
 
 namespace HexMaster.DomainDrivenDesign;
 
@@ -13,6 +14,8 @@ public abstract class DomainModel<TId> : IDomainModel<TId>
     public TId Id { get; }
     public TrackingState TrackingState { get; private set; }
     public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    public ValidationNotification ValidationNotification { get; } = new();
+
     public void AddDomainEvent(IDomainEvent domainEvent)
     {
         if (_domainEvents.All(evt => evt.EventId != domainEvent.EventId))
@@ -34,6 +37,11 @@ public abstract class DomainModel<TId> : IDomainModel<TId>
         _domainEvents.Clear();
     }
 
+    public void AddValidationError(string message)
+    {
+        ValidationNotification.AddError(message);
+    }
+
     protected void SetState(TrackingState state)
     {
         if (TrackingState.CanSwitchTo(state))
@@ -41,10 +49,12 @@ public abstract class DomainModel<TId> : IDomainModel<TId>
             TrackingState = state;
         }
     }
+
+
+
     protected DomainModel(TId id) : this(id, TrackingState.Pristine)
     {
     }
-
     protected DomainModel(TId id, TrackingState state)
     {
         if (state != TrackingState.New && state != TrackingState.Pristine)
